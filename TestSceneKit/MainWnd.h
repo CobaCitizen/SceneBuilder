@@ -19,9 +19,9 @@
 @property (nonatomic, retain) IBOutlet SCNView* cameraPreview;
 
 @property (nonatomic, retain) IBOutlet NSPopUpButton* btnAnimations;
-@property (nonatomic, retain) IBOutlet NSOutlineView* ovTree;
 
 -(IBAction)actOpenFile:(id)sender;
+-(IBAction)actLoad3djsFile:(id)sender;
 -(IBAction)actAddCamera:(id)sender;
 -(IBAction)actAddBox:(id)sender;
 -(IBAction)actAddLight:(id)sender;

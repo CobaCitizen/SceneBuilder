@@ -8,6 +8,7 @@
 
 #import "MainWnd.h"
 #import "ViewScene.h"
+#import "M3DX3djsLoader.h"
 
 @interface MainWnd() <NSOutlineViewDataSource, NSOutlineViewDelegate, ViewSceneDelegate>
 @property (nonatomic, retain) SCNNode* _box;
@@ -19,12 +20,15 @@
 {
     SCNScene* _scene;
     SCNNode* _selectedNode;
-    
+	NSMutableDictionary *_scenes;
 }
 
 
--(void)awakeFromNib{
+-(void)awakeFromNib
+{
     _scene = [[SCNScene alloc] init];
+	_scenes = [NSMutableDictionary dictionary];
+	
     self.viewLeft.allowsCameraControl = YES;
     self.viewBottom.allowsCameraControl = YES;
     self.viewTop.allowsCameraControl = YES;
@@ -46,7 +50,7 @@
     if(_selectedNode != selectedNode) {
         SCNMaterial *material = [SCNMaterial material];
         material.diffuse.contents = [NSImage imageNamed:@"checker.jpg"];
-        _selectedNode.geometry.materials = [[NSArray alloc] initWithObjects:material, nil];
+        //_selectedNode.geometry.materials = [[NSArray alloc] initWithObjects:material, nil];
     }
     _selectedNode = selectedNode;
 }
@@ -76,10 +80,28 @@
         animationObject.repeatCount = INFINITY;
         [_scene.rootNode addAnimation:animationObject forKey:key];
     }
-    //[self.ovTree reloadData];
-    
 }
 
+-(IBAction)actLoad3djsFile:(id)sender
+{
+	static int ident = 0;
+	
+	NSOpenPanel* openPanel = [[NSOpenPanel alloc] init];
+	[openPanel runModal];
+
+	NSURL *srcUrl =openPanel.URLs[0];
+	M3DX3djsLoader *loader = [[M3DX3djsLoader alloc] init];
+	NSString *sceneKey = [NSString stringWithFormat:@"Scene%d",ident++];
+
+	M3DXScene *sc = [loader loadFromUrl:srcUrl];
+	[_scenes setValue:sc forKey:sceneKey];
+	
+	for (SCNNode *child in sc.scnScene.rootNode.childNodes) {
+		[_scene.rootNode addChildNode:child];
+	}
+	
+
+}
 -(IBAction)actRemoveAllObjects:(id)sender {
     for(SCNNode* node in _scene.rootNode.childNodes) {
         [node removeFromParentNode];

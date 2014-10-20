@@ -30,8 +30,8 @@
             SCNHitTestResult* selection = result;
             selectedNode = selection.node;
             SCNMaterial *material = [SCNMaterial material];
-            material.diffuse.contents = [NSColor redColor];
-            selectedNode.geometry.firstMaterial = material;
+//            material.diffuse.contents = [NSColor redColor];
+//            selectedNode.geometry.firstMaterial = material;
         }
     }
     [self.delegate selectionNodeDidChanged:selectedNode];

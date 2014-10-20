@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		994EFB5319F52FCF00A2BEA9 /* M3DX3djsLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 994EFB5219F52FCF00A2BEA9 /* M3DX3djsLoader.m */; };
+		994EFB5919F54D4C00A2BEA9 /* M3DXCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 994EFB5819F54D4C00A2BEA9 /* M3DXCoder.m */; };
+		994EFB5C19F5817100A2BEA9 /* M3DXMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 994EFB5B19F5817100A2BEA9 /* M3DXMaterial.m */; };
+		994EFB5F19F58B1100A2BEA9 /* M3DXImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 994EFB5E19F58B1100A2BEA9 /* M3DXImage.m */; };
+		994EFB6219F594D800A2BEA9 /* M3DXScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 994EFB6119F594D800A2BEA9 /* M3DXScene.m */; };
 		B5A9A70819F3ACEE00C37DD1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A9A70719F3ACEE00C37DD1 /* main.m */; };
 		B5A9A70B19F3ACEE00C37DD1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A9A70A19F3ACEE00C37DD1 /* AppDelegate.m */; };
 		B5A9A70E19F3ACEE00C37DD1 /* TestSceneKit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B5A9A70C19F3ACEE00C37DD1 /* TestSceneKit.xcdatamodeld */; };
@@ -31,6 +36,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		994EFB5119F52FCF00A2BEA9 /* M3DX3djsLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3DX3djsLoader.h; sourceTree = "<group>"; };
+		994EFB5219F52FCF00A2BEA9 /* M3DX3djsLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3DX3djsLoader.m; sourceTree = "<group>"; };
+		994EFB5719F54D4C00A2BEA9 /* M3DXCoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3DXCoder.h; sourceTree = "<group>"; };
+		994EFB5819F54D4C00A2BEA9 /* M3DXCoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3DXCoder.m; sourceTree = "<group>"; };
+		994EFB5A19F5817100A2BEA9 /* M3DXMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3DXMaterial.h; sourceTree = "<group>"; };
+		994EFB5B19F5817100A2BEA9 /* M3DXMaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3DXMaterial.m; sourceTree = "<group>"; };
+		994EFB5D19F58B1100A2BEA9 /* M3DXImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3DXImage.h; sourceTree = "<group>"; };
+		994EFB5E19F58B1100A2BEA9 /* M3DXImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3DXImage.m; sourceTree = "<group>"; };
+		994EFB6019F594D800A2BEA9 /* M3DXScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3DXScene.h; sourceTree = "<group>"; };
+		994EFB6119F594D800A2BEA9 /* M3DXScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3DXScene.m; sourceTree = "<group>"; };
 		B5A9A70219F3ACEE00C37DD1 /* TestSceneKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestSceneKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5A9A70619F3ACEE00C37DD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5A9A70719F3ACEE00C37DD1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -70,6 +85,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		994EFB5019F52F8600A2BEA9 /* SceneLoaders */ = {
+			isa = PBXGroup;
+			children = (
+				994EFB5119F52FCF00A2BEA9 /* M3DX3djsLoader.h */,
+				994EFB5219F52FCF00A2BEA9 /* M3DX3djsLoader.m */,
+				994EFB5719F54D4C00A2BEA9 /* M3DXCoder.h */,
+				994EFB5819F54D4C00A2BEA9 /* M3DXCoder.m */,
+			);
+			name = SceneLoaders;
+			sourceTree = "<group>";
+		};
 		B5A9A6F919F3ACEE00C37DD1 = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +118,7 @@
 		B5A9A70419F3ACEE00C37DD1 /* TestSceneKit */ = {
 			isa = PBXGroup;
 			children = (
+				994EFB5019F52F8600A2BEA9 /* SceneLoaders */,
 				B5A9A73A19F45B1500C37DD1 /* checker.jpg */,
 				B5A9A72D19F3B4EB00C37DD1 /* Dude.DAE */,
 				B5A9A70919F3ACEE00C37DD1 /* AppDelegate.h */,
@@ -104,6 +131,12 @@
 				B5A9A72B19F3AD8A00C37DD1 /* MainWnd.m */,
 				B5EAA13519F4F3AD00221801 /* ViewScene.h */,
 				B5EAA13619F4F3AD00221801 /* ViewScene.m */,
+				994EFB5A19F5817100A2BEA9 /* M3DXMaterial.h */,
+				994EFB5B19F5817100A2BEA9 /* M3DXMaterial.m */,
+				994EFB5D19F58B1100A2BEA9 /* M3DXImage.h */,
+				994EFB5E19F58B1100A2BEA9 /* M3DXImage.m */,
+				994EFB6019F594D800A2BEA9 /* M3DXScene.h */,
+				994EFB6119F594D800A2BEA9 /* M3DXScene.m */,
 			);
 			path = TestSceneKit;
 			sourceTree = "<group>";
@@ -235,8 +268,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				994EFB6219F594D800A2BEA9 /* M3DXScene.m in Sources */,
 				B5A9A70E19F3ACEE00C37DD1 /* TestSceneKit.xcdatamodeld in Sources */,
 				B5A9A70B19F3ACEE00C37DD1 /* AppDelegate.m in Sources */,
+				994EFB5F19F58B1100A2BEA9 /* M3DXImage.m in Sources */,
+				994EFB5319F52FCF00A2BEA9 /* M3DX3djsLoader.m in Sources */,
+				994EFB5919F54D4C00A2BEA9 /* M3DXCoder.m in Sources */,
+				994EFB5C19F5817100A2BEA9 /* M3DXMaterial.m in Sources */,
 				B5EAA13719F4F3AD00221801 /* ViewScene.m in Sources */,
 				B5A9A72C19F3AD8A00C37DD1 /* MainWnd.m in Sources */,
 				B5A9A70819F3ACEE00C37DD1 /* main.m in Sources */,

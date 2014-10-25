@@ -191,7 +191,7 @@
 	[CATransaction begin];
 	[CATransaction setValue: [NSNumber numberWithBool: YES]	 forKey: kCATransactionDisableActions];
 	
-	if(self.animationCurrentSate < 3)
+	if(self.animationCurrentSate < 10)
 	{
 		[CATransaction setCompletionBlock:^{
 			self.animationCurrentSate++;

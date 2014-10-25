@@ -8,6 +8,9 @@
 
 #import "ViewScene.h"
 
+#define DEGREES_TO_RADIANS  (180.0 * M_PI)
+#define RADIANS_TO_DEGREES  (M_PI/180)
+
 enum ScenTransformMode
 {
 	TransformModePosition,
@@ -54,29 +57,36 @@ enum SceneTransformAxis
 		_strTransformMode = @"rotation";
 		[self.delegate transformModeDidChanged:_strTransformMode];
 		break;
-		case 7://x
-			_transformAxis = TransformAxisX;
-			text = [NSString stringWithFormat:@"%@ Axis:X",_strTransformMode];
-			[self.delegate transformModeDidChanged:text];
-			break;
-		case 16://y
-			_transformAxis = TransformAxisY;
-			text = [NSString stringWithFormat:@"%@ Axis:Y",_strTransformMode];
-			[self.delegate transformModeDidChanged:text];
-			break;
-		case 6://z
-			_transformAxis = TransformAxisZ;
-			text = [NSString stringWithFormat:@"%@ Axis:Z",_strTransformMode];
-			[self.delegate transformModeDidChanged:text];
-			break;
-		case 124: // RIGHT
-		case 126: // UP
-			[self doTransform:1];
-			break;
-		case 123:// LEFT
-		case 125:// DOWN
-			[self doTransform:-1];
-			break;
+	case 1://s scale
+		_transformMode = TransformModeScale;
+		_strTransformMode = @"scale";
+		[self.delegate transformModeDidChanged:_strTransformMode];
+		break;
+
+			
+	case 7://x
+		_transformAxis = TransformAxisX;
+		text = [NSString stringWithFormat:@"%@ Axis:X",_strTransformMode];
+		[self.delegate transformModeDidChanged:text];
+		break;
+	case 16://y
+		_transformAxis = TransformAxisY;
+		text = [NSString stringWithFormat:@"%@ Axis:Y",_strTransformMode];
+		[self.delegate transformModeDidChanged:text];
+		break;
+	case 6://z
+		_transformAxis = TransformAxisZ;
+		text = [NSString stringWithFormat:@"%@ Axis:Z",_strTransformMode];
+		[self.delegate transformModeDidChanged:text];
+		break;
+	case 124: // RIGHT
+	case 126: // UP
+		[self doTransform:1];
+		break;
+	case 123:// LEFT
+	case 125:// DOWN
+		[self doTransform:-1];
+		break;
   default:
     	NSLog(@"1.Key : %d",theEvent.keyCode);
 		break;
@@ -136,17 +146,52 @@ enum SceneTransformAxis
   default:
 			break;
 	}
-	
 	_selectedNode.position =position;
-	if(_selectedNode.parentNode)
-	{
-		//_selectedNode.parentNode.position = position;
-	}
-	else
-	{
-	}
-	//[_selectedNode setPosition:position];
 }
+-(void)changeRotation:(int)delta
+{
+	
+	float angleDelta =delta * M_PI / 180;
+
+	switch (_transformAxis) {
+		case TransformAxisX:
+			_selectedNode.transform = CATransform3DRotate(_selectedNode.transform, angleDelta, 1, 0, 0);
+			break;
+		case TransformAxisY:
+			_selectedNode.transform = CATransform3DRotate(_selectedNode.transform, angleDelta, 0, 1, 0);
+			break;
+		case TransformAxisZ:
+			_selectedNode.transform = CATransform3DRotate(_selectedNode.transform, angleDelta, 0, 0, 1);
+			break;
+  default:
+		break;
+	}
+//	_selectedNode.transform =
+//    CATransform3DRotate(CATransform3DRotate(CATransform3DRotate(_selectedNode.transform, angleX, 1, 0, 0), angleY, 0, 1, 0), angleZ, 0, 0, 1);
+
+}
+-(void)changeScale:(int)delta
+{
+
+	float koef = delta * .333;
+	switch (_transformAxis) {
+		case TransformAxisX:
+			_selectedNode.transform = CATransform3DScale(_selectedNode.transform, _selectedNode.scale.x + koef, 1, 1);
+			break;
+		case TransformAxisY:
+			_selectedNode.transform = CATransform3DScale(_selectedNode.transform, 1, _selectedNode.scale.y + koef, 1);
+			break;
+		case TransformAxisZ:
+			_selectedNode.transform = CATransform3DScale(_selectedNode.transform, 1, 1, _selectedNode.scale.z + koef);
+			break;
+  default:
+			break;
+	}
+	//	_selectedNode.transform =
+	//    CATransform3DRotate(CATransform3DRotate(CATransform3DRotate(_selectedNode.transform, angleX, 1, 0, 0), angleY, 0, 1, 0), angleZ, 0, 0, 1);
+	
+}
+
 -(void)doTransform:(int)delta
 {
 	if(!_selectedNode)
@@ -159,6 +204,10 @@ enum SceneTransformAxis
 			[self changePosition:delta];
 			break;
 		case TransformModeRotation:
+			[self changeRotation:delta];
+			break;
+		case TransformModeScale:
+			[self changeScale:delta];
 			break;
   default:
 			break;

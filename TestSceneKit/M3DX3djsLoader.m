@@ -63,10 +63,11 @@
 	
 	//--Decode vertices
 	NSMutableArray* theVertices = dic[@"vertices"];
-	SCNVector3 *vertices = malloc(sizeof(SCNVector3) *theVertices.count);
+	long verticesCount =theVertices.count/3;
+
+	SCNVector3 *vertices = malloc(sizeof(SCNVector3) *verticesCount);
 	SCNVector3 *p = vertices;
 	
-	long verticesCount =theVertices.count/3;
 	
 	for(int i=0; i < theVertices.count;i+=3)
 	{
@@ -80,10 +81,10 @@
 	
 	//--Decode face indices
 	NSMutableArray* theIndices = dic[@"faces"];
+	long indicesCount = theIndices.count;
 	int *indices = malloc(sizeof(int) * theIndices.count);
 	int *pi = indices;
 	
-	long indicesCount = theIndices.count/3;
 	
 	for (int i=0; i<theIndices.count; i++)
 	{
@@ -100,10 +101,11 @@
 	
 	
 	NSMutableArray* theNormals = dic[@"normals"];
-	SCNVector3 *normals = malloc(sizeof(SCNVector3) *theNormals.count);
+	long normalsCount =theNormals.count/3;
+	
+	SCNVector3 *normals = malloc(sizeof(SCNVector3) * normalsCount);
 	p = normals;
 	
-	long normalsCount =theNormals.count/3;
 	
 	for(int i=0; i < theNormals.count;i+=3)
 	{
@@ -117,17 +119,7 @@
 	SCNGeometrySource *normalSource =[SCNGeometrySource geometrySourceWithNormals:normals count:normalsCount];
 
 	
-	SCNGeometry *geometry =	[SCNGeometry geometryWithSources:@[vertexSource, normalSource] elements:@[element]];
-	/*
-	//--Decode normals
-	NSMutableArray* theNormals = dic[@"normals"];
-	float* dataNormals = malloc(sizeof(float)*theNormals.count);
-	for(int i=0; i<theNormals.count;i++)
-	{
-		dataNormals[i] = [theNormals[i] floatValue];
-	}
-	NSData* _normals = [NSData dataWithBytesNoCopy:dataNormals length:sizeof(float)*theNormals.count];
-	
+
 	//--Decode UVs coord types
 	NSArray* theUVTypes = dic[@"uvsTypes"];
 	NSMutableArray* theUVsTypesAll = [NSMutableArray array];
@@ -137,6 +129,7 @@
 		//[theUVsTypesAll addObject:@(theUVCoordType)];
 	}
 	
+	SCNGeometrySource *texturesCoord;
 	//--Decode UVs coords
 	NSArray* theUVs = dic[@"uvs"];
 	//Для каждого текстурного канала - создать NSData с float значениями координат
@@ -144,19 +137,22 @@
 	{
 		if (theUVsArray.count == 0) continue;
 		
-		//Создать и заполнить буфер с UV координатами
-		float* theUVsBuf = malloc(sizeof(float)*theUVsArray.count);
-		for (int i=0; i<theUVsArray.count; i++)
-			theUVsBuf[i] = [theUVsArray[i] floatValue];
-		
-		//Создать NSData с UV координатами
-		NSData* theUVsData = [NSData dataWithBytesNoCopy:theUVsBuf length:sizeof(float)*theUVsArray.count];
-		
-		//ww/NSUInteger theCurChannel = self.countUVChannels;
-		//Создать канал текстуры из UV-координат и типа UV-координат
-		//w[self addUVCoords:theUVsData coordsType:(M3DTypeUVCoords)[theUVsTypesAll[theCurChannel] integerValue]];
+		long pointsCount = theUVsArray.count/2;
+		CGPoint *points = malloc(sizeof(CGPoint) * theUVsArray.count/2);
+		CGPoint *point = points;
+
+		for (int i=0; i<theUVsArray.count; i+=2)
+		{
+			point->x = [theUVsArray[i] floatValue];
+			point->y = [theUVsArray[i+1] floatValue];
+			point++;
+		}
+		texturesCoord = [SCNGeometrySource geometrySourceWithTextureCoordinates:points count:pointsCount];
+		break;
 	}
-	*/
+
+	SCNGeometry *geometry =	[SCNGeometry geometryWithSources:@[vertexSource, normalSource,texturesCoord] elements:@[element]];
+
 	return geometry;
 }
 -(SCNNode*)loadNode:(NSDictionary *)dic withScene:(M3DXScene *)scene

@@ -29,6 +29,7 @@
 
     _scene = [[SCNScene alloc] init];
 //	_scenes = [NSMutableDictionary dictionary];
+	
 	_animator = [[M3DXAnimation alloc] init];
 	
     self.viewLeft.allowsCameraControl = YES;
@@ -310,7 +311,60 @@
         _selectedNode.position = vecResult;
     }
 }
+#pragma mark - Create Line
+-(void) addLine
+{
+	/*
+	// vertex buffer
+	SCNVector3 *points = malloc(sizeof(SCNVector3)*2);
+	points[0] = SCNVector3Make( 10.0,  10.0,  0.0);
+	points[1] = SCNVector3Make(-10.0, -10.0,  0.0);
+	
 
+	SCNGeometrySource *geoSrc = [SCNGeometrySource geometrySourceWithVertices:points count:2];
+ 
+	// index buffer
+	int *indices = malloc(sizeof(int) * 2);
+	indices[0] = 0;
+	indices[1] = 1;
+	NSData *data = [NSData dataWithBytes:indices length:sizeof(int) * 2];
+	
+	SCNGeometryElement *geoElements = [SCNGeometryElement geometryElementWithData:data
+																	primitiveType: SCNGeometryPrimitiveTypeLine
+																    primitiveCount: 1
+																	bytesPerIndex: sizeof(int)];
+ 
+	// line node
+	SCNGeometry *geo = [SCNGeometry geometryWithSources:@[geoSrc] elements: @[geoElements]];
+	SCNNode *line = [SCNNode node];
+	line.geometry =  geo;
+	[_scene.rootNode addChildNode:line];
+	*/
+ SCNVector3 positions[] = {
+	 SCNVector3Make(0.0, 0.0, 0.0),
+	 SCNVector3Make(10.0, 10.0, 10.0)
+ };
+	
+	int indices[] = {0, 1};
+	
+	SCNGeometrySource *vertexSource = [SCNGeometrySource geometrySourceWithVertices:positions
+																			  count:2];
+	
+	NSData *indexData = [NSData dataWithBytes:indices
+									   length:sizeof(indices)];
+	
+	SCNGeometryElement *element = [SCNGeometryElement geometryElementWithData:indexData
+																primitiveType:SCNGeometryPrimitiveTypeLine
+															   primitiveCount:1
+																bytesPerIndex:sizeof(int)];
+	
+	SCNGeometry *line = [SCNGeometry geometryWithSources:@[vertexSource]
+												elements:@[element]];
+	
+	SCNNode *lineNode = [SCNNode nodeWithGeometry:line];
+	
+	[_scene.rootNode addChildNode:lineNode];
+}
 ////////////////////////////////////////////////////////////////////////
 #pragma mark - NSOutlineViewDataSource
 ////////////////////////////////////////////////////////////////////////
